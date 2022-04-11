@@ -84,6 +84,11 @@ tables_info = [
         'create_stmt': create_fact_trip_table,
         'insert_stmt': insert_fact_trip_table,
     },
+    {
+        'name': '"factPayment"',
+        'create_stmt': create_fact_payment_table,
+        'insert_stmt': insert_fact_payment_table,
+    },
 ]
 
 # DROP TABLES

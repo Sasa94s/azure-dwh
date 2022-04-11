@@ -51,12 +51,20 @@ CREATE TABLE "factTrip" (
     account_key INTEGER,
     rider_key INTEGER,
     station_key INTEGER,
-    payment_date_key INTEGER,
     rideable_type VARCHAR(75),
     started_at TIMESTAMP,
     ended_at TIMESTAMP,
-    payment_amount MONEY,
     rider_age_on_trip INTEGER,
-    PRIMARY KEY(trip_id, account_key, rider_key, station_key, payment_date_key, payment_amount)
+    PRIMARY KEY(trip_id, account_key, rider_key, station_key)
+)
+"""
+
+create_fact_payment_table = """
+CREATE TABLE "factPayment" (
+    payment_date_key INTEGER,
+    account_key INTEGER,
+    rider_key INTEGER,
+    payment_amount MONEY,
+    PRIMARY KEY(payment_date_key, account_key, rider_key)
 )
 """
