@@ -1,55 +1,44 @@
-# README Template
+# Azure DWH - Divvy Bike share
 
-Below is a template provided for use when building your README file for students.
-
-# Project Title
-
-Project description goes here.
+Divvy is a bike sharing program in Chicago, Illinois USA that allows riders to purchase a pass at a kiosk or use a mobile application to unlock a bike at stations around the city and use the bike for a specified amount of time.
 
 ## Getting Started
 
-Instructions for how to get a copy of the project running on your local machine.
+The goal of this project is to develop a data warehouse solution using Azure Synapse Analytics. You will:
+
+- Design a star schema based on the business outcomes listed below.
+- Import the data into Synapse.
+- Transform the data into the star schema.
+- View the reports from Analytics.
+
+### Business Outcomes
+1. Analyze how much time is spent per ride
+   - Based on date and time factors such as day of week and time of day
+   - Based on which station is the starting and / or ending station
+   - Based on age of the rider at time of the ride
+   - Based on whether the rider is a member or a casual rider
+2. Analyze how much money is spent
+   - Per month, quarter, year
+   - Per member, based on the age of the rider at account start
+3. EXTRA CREDIT - Analyze how much money is spent per member
+   - Based on how many rides the rider averages per month
+   - Based on how many minutes the rider spends on a bike per month
 
 ### Dependencies
 
-```
-Examples here
-```
+- [Python](https://www.python.org/downloads/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- Install Python dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+- [Divvy dataset](https://video.udacity-data.com/topher/2022/March/622a5fc6_azure-data-warehouse-projectdatafiles/azure-data-warehouse-projectdatafiles.zip)
 
 ### Installation
 
-Step by step explanation of how to get a dev environment running.
-
-List out the steps
-
-```
-Give an example here
-```
-
-## Testing
-
-Explain the steps needed to run any automated tests
-
-### Break Down Tests
-
-Explain what each test does and why
-
-```
-Examples here
-```
+After installing dependencies, you need to download Divvy dataset and move it into `src/data` directory.
 
 ## Project Instructions
 
 This section should contain all the student deliverables for this project.
 
-## Built With
-
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
-
-Include all items used to build project.
-
-## License
-
-[License](LICENSE.txt)
