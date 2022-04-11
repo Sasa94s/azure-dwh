@@ -1,5 +1,5 @@
 copy_query = """
-COPY {table_name} 
+COPY {name} 
 FROM '{file_name}' 
 DELIMITER ',' CSV
 """
