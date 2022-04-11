@@ -6,13 +6,11 @@ DELIMITER ',' CSV
 
 insert_account_table = """
 INSERT INTO account (
-    account_number,
     account_start_date,
     account_end_date,
     is_member
 )
-SELECT ROW_NUMBER() OVER (ORDER BY account_start_date) AS account_number,
-       r.account_start_date,
+SELECT r.account_start_date,
        r.account_end_date,
        r.is_member
 FROM (SELECT DISTINCT account_start_date,

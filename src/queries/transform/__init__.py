@@ -30,7 +30,6 @@ FROM account
 
 insert_dim_station_table = """
 INSERT INTO "dimStation" (
-    station_key,
     from_station,
     from_station_name,
     from_station_latitude,
@@ -40,15 +39,14 @@ INSERT INTO "dimStation" (
     to_station_latitude,
     to_station_longitude
 )
-SELECT ROW_NUMBER() OVER (ORDER BY ss.station_id, es.station_id) AS station_key,
-       ss.station_id AS from_station,
-       ss."name" AS from_station_name,
-       ss.latitude AS from_station_latitude,
-       ss.longitude AS from_station_longitude,
-       es.station_id AS to_station,
-       es."name" AS to_station_name,
-       es.latitude AS to_station_latitude,
-       es.longitude AS to_station_longitude
+SELECT DISTINCT ss.station_id AS from_station,
+                ss."name" AS from_station_name,
+                ss.latitude AS from_station_latitude,
+                ss.longitude AS from_station_longitude,
+                es.station_id AS to_station,
+                es."name" AS to_station_name,
+                es.latitude AS to_station_latitude,
+                es.longitude AS to_station_longitude
 FROM trip AS t
 JOIN station AS ss ON t.start_station_id = ss.station_id
 JOIN station AS es ON t.end_station_id = es.station_id
@@ -56,7 +54,6 @@ JOIN station AS es ON t.end_station_id = es.station_id
 
 insert_dim_date_table = """
 INSERT INTO "dimDate" (
-    date_key,
     "date",
     day_number_of_week,
     "month",
@@ -66,15 +63,14 @@ INSERT INTO "dimDate" (
     day_number_of_year,
     week_number_of_year
 )
-SELECT ROW_NUMBER() OVER (ORDER BY p."date") AS date_key,
-       p."date",
-       EXTRACT(ISODOW FROM p."date") AS day_number_of_week,
-       EXTRACT(MONTH FROM p."date") AS "month",
-       EXTRACT(QUARTER FROM p."date") AS quarter,
-       EXTRACT(YEAR FROM p."date") AS "year",
-       EXTRACT(DAY FROM p."date") AS day_number_of_month,
-       EXTRACT(DOY FROM p."date") AS day_number_of_year,
-       EXTRACT(ISOYEAR FROM p."date") AS week_number_of_year
+SELECT DISTINCT p."date",
+                EXTRACT(ISODOW FROM p."date") AS day_number_of_week,
+                EXTRACT(MONTH FROM p."date") AS "month",
+                EXTRACT(QUARTER FROM p."date") AS quarter,
+                EXTRACT(YEAR FROM p."date") AS "year",
+                EXTRACT(DAY FROM p."date") AS day_number_of_month,
+                EXTRACT(DOY FROM p."date") AS day_number_of_year,
+                EXTRACT(ISOYEAR FROM p."date") AS week_number_of_year
 FROM payment AS p
 JOIN account AS a ON p.account_number = a.account_number
 JOIN rider AS r ON a.account_number = r.account_number

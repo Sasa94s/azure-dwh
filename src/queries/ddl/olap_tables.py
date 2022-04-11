@@ -19,7 +19,7 @@ CREATE TABLE "dimRider" (
 
 create_dim_station_table = """
 CREATE TABLE "dimStation" (
-    station_key INTEGER PRIMARY KEY,
+    station_key SERIAL PRIMARY KEY,
     from_station VARCHAR(50),
     from_station_name VARCHAR(75),
     from_station_latitude FLOAT, 
@@ -33,7 +33,7 @@ CREATE TABLE "dimStation" (
 
 create_dim_date_table = """
 CREATE TABLE "dimDate" (
-    date_key INTEGER PRIMARY KEY,
+    date_key SERIAL PRIMARY KEY,
     "date"  DATE,
     day_number_of_week INTEGER,
     "month" INTEGER,

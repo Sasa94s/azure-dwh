@@ -1,6 +1,6 @@
 create_account_table = """
 CREATE TABLE account (
-    account_number INTEGER PRIMARY KEY, 
+    account_number SERIAL PRIMARY KEY, 
     account_start_date DATE, 
     account_end_date DATE, 
     is_member BOOLEAN
