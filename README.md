@@ -40,5 +40,24 @@ After installing dependencies, you need to download Divvy dataset and move it in
 
 ## Project Instructions
 
-This section should contain all the student deliverables for this project.
+Creating resources on Azure cloud provider.
+Project instructions can be found [here](./INSTRUCTIONS.md)
+
+**Note:** After creating Azure PostgreSQL Server [etl.py](./src/etl.py) script is executed with configured [dwh.cfg](./src/dwh.cfg)
+
+### ERD Diagram
+Since the data from Divvy are anonymous, we have created fake rider and account profiles along with fake payment data to go along with the data from Divvy. The dataset looks like this:
+
+![ERD](./resources/divvy-erd.png)
+
+### Star Schema
+Star Schema is designed based on the relational diagram and the business problems outlined. ([PDF Version](./resources/divvy-star-schema.pdf))
+
+![Star Schema](./resources/divvy-star-schema.png)
+
+### Synapse Dedicated SQL Pool
+![synapse dedicated sql pool](./resources/synapse_divvy_pool_sql.png)
+
+### Azure Blob Storage
+![azure blob storage](./resources/azure_blob_storage.png)
 
