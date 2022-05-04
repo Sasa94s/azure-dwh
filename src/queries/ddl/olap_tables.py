@@ -52,8 +52,9 @@ CREATE TABLE "factTrip" (
     rider_key INTEGER,
     station_key INTEGER,
     rideable_type VARCHAR(75),
-    started_at TIMESTAMP,
-    ended_at TIMESTAMP,
+    trip_start_date_key INTEGER,
+    trip_end_date_key INTEGER,
+    trip_duration INTEGER,
     rider_age_on_trip INTEGER,
     PRIMARY KEY(trip_id, account_key, rider_key, station_key)
 )

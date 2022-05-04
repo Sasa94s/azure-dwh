@@ -76,6 +76,28 @@ JOIN account AS a ON p.account_number = a.account_number
 JOIN rider AS r ON a.account_number = r.account_number
 JOIN trip AS t ON r.rider_id = t.rider_id
 GROUP BY p."date"
+UNION ALL
+SELECT DISTINCT t.start_at,
+                EXTRACT(ISODOW FROM t.start_at) AS day_number_of_week,
+                EXTRACT(MONTH FROM t.start_at) AS "month",
+                EXTRACT(QUARTER FROM t.start_at) AS quarter,
+                EXTRACT(YEAR FROM t.start_at) AS "year",
+                EXTRACT(DAY FROM t.start_at) AS day_number_of_month,
+                EXTRACT(DOY FROM t.start_at) AS day_number_of_year,
+                EXTRACT(ISOYEAR FROM t.start_at) AS week_number_of_year
+FROM trip AS t
+GROUP BY t.start_at
+UNION ALL
+SELECT DISTINCT t.ended_at,
+                EXTRACT(ISODOW FROM t.ended_at) AS day_number_of_week,
+                EXTRACT(MONTH FROM t.ended_at) AS "month",
+                EXTRACT(QUARTER FROM t.ended_at) AS quarter,
+                EXTRACT(YEAR FROM t.ended_at) AS "year",
+                EXTRACT(DAY FROM t.ended_at) AS day_number_of_month,
+                EXTRACT(DOY FROM t.ended_at) AS day_number_of_year,
+                EXTRACT(ISOYEAR FROM t.ended_at) AS week_number_of_year
+FROM trip AS t
+GROUP BY t.ended_at
 """
 
 insert_fact_trip_table = """
@@ -85,8 +107,9 @@ INSERT INTO "factTrip" (
     rider_key,
     station_key,
     rideable_type,
-    started_at,
-    ended_at,
+    trip_start_date_key,
+    trip_end_date_key,
+    trip_duration,
     rider_age_on_trip
 )
 SELECT t.trip_id,
@@ -94,8 +117,9 @@ SELECT t.trip_id,
        sub.rider_key,
        ds.station_key,
        t.rideable_type,
-       t.start_at,
-       t.ended_at,
+       dds.date_key AS trip_start_date_key,
+       dde.date_key AS trip_end_date_key,
+       EXTRACT(MINUTE FROM AGE(t.ended_at, t.start_at)) AS trip_duration,
        sub.rider_age_on_trip
 FROM (SELECT DISTINCT da.account_key,
                       dr.rider_key,
@@ -107,6 +131,8 @@ FROM (SELECT DISTINCT da.account_key,
          JOIN trip AS t ON sub.rider_key = t.rider_id
          JOIN "dimStation" AS ds ON ds.from_station = t.start_station_id AND
                                     ds.to_station = t.end_station_id
+         JOIN "dimDate" dds ON dds.date = t.start_at
+         JOIN "dimDate" dde ON dde.date = t.ended_at
 """
 
 insert_fact_payment_table = """
